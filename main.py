@@ -2,7 +2,7 @@
 # All rights reserved.
 
 # Part of the book Transcendental Computing with Python: Applications in Mathematics - Edition 1
-
+import random
 from collections import deque
 import copy
 file_content_1 = None
@@ -18,32 +18,6 @@ file_content_10 = None
 file_content_11 = None
 file_content_12 = None
 file_content_13 = None
-with open("geo_t/formula_list_1.txt", 'r') as file:
-  file_content_1 = file.read()
-with open("geo_t/formula_list_2.txt", 'r') as file:
-  file_content_2 = file.read()
-with open("geo_t/formula_list_3.txt", 'r') as file:
-  file_content_3 = file.read()
-with open("geo_t/formula_list_4.txt", 'r') as file:
-  file_content_4 = file.read()
-with open("geo_t/formula_list_5.txt", 'r') as file:
-  file_content_5 = file.read()
-with open("geo_t/formula_list_6.txt", 'r') as file:
-  file_content_6 = file.read()
-with open("geo_t/formula_list_7.txt", 'r') as file:
-  file_content_7 = file.read()
-with open("geo_t/formula_list_8.txt", 'r') as file:
-  file_content_8 = file.read()
-with open("geo_t/formula_list_9.txt", 'r') as file:
-  file_content_9 = file.read()
-with open("geo_t/formula_list_10.txt", 'r') as file:
-  file_content_10 = file.read()
-with open("geo_t/formula_list_11.txt", 'r') as file:
-  file_content_11 = file.read()
-with open("geo_t/formula_list_12.txt", 'r') as file:
-  file_content_12 = file.read()
-with open("geo_t/formula_list_13.txt", 'r') as file:
-  file_content_13 = file.read()
 def access_file(num):
   global file_content_1
   global file_content_2
@@ -579,8 +553,11 @@ def line_angle(equation):
   #new = [item for item in new if item[:2]!="d_"]
   return list(set(new))
 
-verb = [("run", "runs", "running", "ran"), ("kill", "kills", "killing", "killed"), ("sleep", "sleeps", "sleeping", "slept")]
-adjective = ["happy", "honest"]
+noun_single = ["human"]
+noun_plural = ["humans"]
+noun = noun_single + noun_plural
+verb = [("go", "goes", "going", "went"), ("run", "runs", "running", "ran"), ("kill", "kills", "killing", "killed"), ("want", "wants", "wanting", "wanted"), ("sleep", "sleeps", "sleeping", "slept"), ("laugh", "laughs", "laughing", "laughed"), ("scare", "scares", "scaring", "scared")]
+adjective = ["happy", "honest", "genius", "fine", "good", "fascinating"]
 
 def ind_pos(sentence, pos, ind=0):
   for i, item in enumerate(sentence):
@@ -588,7 +565,7 @@ def ind_pos(sentence, pos, ind=0):
       return i
   return -1
 
-pronoun_list = [("he", "him"), ("i", "me")]
+pronoun_list = [("he", "him"), ("i", "me"), ("she", "her"), ("they", "their"), ("this", "this")]
 
 def because(a, b):
   return a + [("conjunction", "because")] + b
@@ -604,6 +581,8 @@ def red_because(a, b):
   return a + [("conjunction", "because"), ("preposition", "of"), ("pronoun", word)]
 
 def joins(a, b):
+  a = copy.deepcopy(a)
+  b = copy.deepcopy(b)
   if ind_pos(a, "adjective") != -1 or ind_pos(b, "adjective") != -1:
     return "can't simplify"
   if replace_tense_word([a[-1]], 3) != replace_tense_word([b[-1]], 3) or ind_pos(b, "aux") != 1:
@@ -613,17 +592,38 @@ def joins(a, b):
     for item in pronoun_list:
       if item[0]==b[0][1]:
         word = item[1]
-  return a + [("pronoun", word)]
+  #print(word)
+  output = a + [("pronoun", word)]
+  if len(output) != 3:
+    return "can't simplify"
+  return output
 
+#def and_sentence(sentence):
+#  pass
+
+def first_person(sentence):
+  sentence = copy.deepcopy(sentence)
+  if ind_pos(sentence, "is", 1) != -1:
+    sentence[ind_pos(sentence, "is", 1)] = ("aux", "am")
+  if ind_pos(sentence, "are", 1) != -1:
+    sentence[ind_pos(sentence, "are", 1)] = ("aux", "am")
+  if ind_pos(sentence, "you", 1) != -1:
+    sentence[ind_pos(sentence, "you", 1)] = ("pronoun", "i")
+  return sentence
 def inter2(sentence):
   output = []
+  if len(sentence) == 1:
+    return "can't simplify"
   if ind_pos(sentence, "because", 1) != -1:
     return "can't simplify"
     #a = copy.deepcopy(sentence[:ind_pos(sentence, "because", 1)])
     #print(a)
     #return inter(a) + [("preposition", "after")] + sentence[ind_pos(sentence, "because", 1)+1:]
-  if sentence[0][0] == "pronoun":
-    output.append(("pronoun", "who"))
+  if sentence[0][0] == "pronoun" or sentence[0][0] == "noun":
+    if sentence[0][1] == "this":
+      output.append(("pronoun", "what"))
+    else:
+      output.append(("pronoun", "who"))
   if ind_pos(sentence, "aux") != -1:
     if sentence[ind_pos(sentence, "aux")] != ("aux", "am"):
       output.append(sentence[ind_pos(sentence, "aux")])
@@ -631,10 +631,19 @@ def inter2(sentence):
       output.append(("aux", "is"))
   if ind_pos(sentence, "verb") != -1:
     output.append(sentence[ind_pos(sentence, "verb")])
+  if ind_pos(sentence, "preposition") != -1:
+    output.append(sentence[ind_pos(sentence, "preposition")])
   if sentence[-1] == ("pronoun", "him"):
     output.append(sentence[-1])
+  if ind_pos(sentence,"determiner") != -1 and ind_pos(sentence,"noun") != -1:
+    output.append(sentence[ind_pos(sentence, "determiner")])
+    output.append(sentence[ind_pos(sentence, "noun")])
+    return output
   if ind_pos(sentence, "adjective") != -1:
     output.append(sentence[ind_pos(sentence, "adjective")])
+  if ind_pos(sentence, "adverb") != -1:
+    output.append(sentence[ind_pos(sentence, "adverb")])
+  
   return output
 
 def invert(sentence_orig):
@@ -648,7 +657,7 @@ def invert(sentence_orig):
     sentence.insert(index, ("adverb", "not"))
     return sentence
   if index == -1:
-    if ind_pos(sentence, "i_pronoun") != -1:
+    if ind_pos(sentence, "question") != -1:
       sentence.insert(ind_pos(sentence, "do"), ("adverb", "not"))
       return sentence
     if ind_pos(sentence, "how", 1) != 1:
@@ -694,11 +703,17 @@ def replace_tense_word(sentence, num):
 p_name = {("pronoun", "i"): ("aux", "am"), ("pronoun", "he"): ("aux", "is")}
 
 def inter(sentence):
+  if len(sentence) == 1:
+    return "can't simplify"
   output = []
+  #if sentence == replace_tense_word(sentence, 2):
+    
+  if ind_pos(sentence, "preposition") != -1:
+    return "can't simplify"
   #sentence = copy.deepcopy(sentence)
   #sentence.remove(("adverb", "away"))
   if ind_pos(sentence, "because", 1) != -1:
-    output.append(("i_adverb", "why"))
+    output.append(("question", "why"))
     es = sentence[:ind_pos(sentence, "because", 1)+1]
     if es == tense(es, "past"):
       if ind_pos(es, "verb") != -1 and es != replace_tense_word(es, 2):
@@ -713,12 +728,22 @@ def inter(sentence):
       output.append(sentence[ind_pos(sentence, "pronoun")])
       output.append(sentence[ind_pos(sentence, "adjective")])
       return output
+    if ind_pos(sentence, "verb") != -1:
+      output.append(sentence[ind_pos(sentence, "aux")])
+      output.append(sentence[ind_pos(sentence, "pronoun")])
+      output.append(sentence[ind_pos(sentence, "verb")])
+      return output
   if ind_pos(sentence, "adjective") != -1:
-    output.append(("adverb", "how"))
+    output.append(("question", "how"))
   if ind_pos(sentence, "verb") != -1:
-    output.append(("i_pronoun", "what"))
+    output.append(("question", "what"))
   if ind_pos(sentence, "verb") != -1:
     if sentence[1][0] == "aux":
+      if sentence == replace_tense_word(sentence, 2):
+        output.append(sentence[1])
+        output.append(sentence[ind_pos(sentence, "pronoun")])
+        output.append(("do", "doing"))
+        return output
       output += [("verb", "happened"), ("preposition", "to")]
       for item in pronoun_list:
         if item[0] == sentence[0][1]:
@@ -734,8 +759,16 @@ def inter(sentence):
     output.append(sentence[ind_pos(sentence, "pronoun")])
     output.append(("do", "do"))
   else:
+    if ind_pos(sentence, "noun") != -1:
+      output.append(("question", "who"))
     output.append(sentence[ind_pos(sentence, "aux")])
-    output.append(sentence[ind_pos(sentence, "pronoun")])
+    if ind_pos(sentence, "pronoun") != -1:
+      output.append(sentence[ind_pos(sentence, "pronoun")])
+    return output
+  if ind_pos(sentence,"determiner") != -1:
+    output.append(sentence[ind_pos(sentence, "determiner")])
+  if ind_pos(sentence,"noun") != -1:
+    output.append(sentence[ind_pos(sentence, "noun")])
   """
   elif ind_pos(sentence, "verb") != -1:
     output[-1] = replace_tense_word([output[-1]], 3)[0]
@@ -749,6 +782,8 @@ def inter(sentence):
 
 def tense(sentence, num):
   global verb
+  if len(sentence) == 1:
+    return "can't simplify"
   #if ind_pos(sentence, "away", 1) != -1:
   #  if sentence[-1] == ("adverb", "away"):
   #    return tense(sentence[:-1], num) + [("adverb", "away")]
@@ -805,7 +840,6 @@ def fx_nest(terminal, fx, depth):
                     if output is not None: # Check if the sub tree has already filled with arugments
                         curr_node.children[i] = copy.deepcopy(output)
                         return curr_node
-            return None
         new_math_equation_list = []
         for item in terminal + list(fx.keys()): # Create new math equations with given elements
             element = item # set the element we want to use to create new math equation
@@ -844,6 +878,7 @@ store = []
 def compute(param, equation):
   global store
   output = []
+  
   equation = copy.deepcopy(equation)
   for item in equation.children:
     if item.name[:2] != "v_":
@@ -859,35 +894,125 @@ def compute(param, equation):
   ans = None
   if equation.name == "f_invert":
     ans = invert(*output)
+  elif equation.name == "f_cont":
+    ans = cont(*output)
   elif equation.name == "f_past":
     ans = tense(*output, "past")
   elif equation.name == "f_join":
     ans = joins(*output)
-  elif equation.name == "f_inter":
-    ans = inter(*output)
+  elif equation.name == "f_joina":
+    ans = joins2(*output)
   elif equation.name == "f_because":
     ans = because(*output)
   elif equation.name == "f_rbecause":
     ans = red_because(*output)
+  elif equation.name == "f_word":
+    ans = add_word(*output)
   return copy.deepcopy(ans)
 
+def add_word(a, b):
+  if ind_pos(a, "adjective") != -1 or len(a) == 1 or len(b) != 1:
+    return "can't simplify"
+  #d = {"away": "adverb"}
+  #sentence = copy.deepcopy(sentence)
+  #output= sentence + [(d[word], word)]
+  #print("start")
+  #print(sentence)
+  #print(output)
+  #print("end")
+  return a+b
+
+def joins2(a, b):
+  if len(a) == 1 or len(b) == 1:
+    return "can't simplify"
+  word = None
+  a = copy.deepcopy(a)
+  #print(a)
+  for item in pronoun_list:
+    if item[0] == b[0][1]:
+      word = item[1]
+  return a + [("preposition", "of")] + [("pronoun", word)]
+
 def cont(sentence):
+  if ind_pos(sentence, "noun") != -1 or len(sentence) == 1:
+    return "can't simplify"
+  sentence = copy.deepcopy(sentence)
+  if ind_pos(sentence, "adjective") != -1:
+    return sentence
   if ind_pos(sentence, "aux") == -1:
     if sentence == tense(sentence, "past"):
-      if sentence[ind_pos(sentence, "pronoun")][0] in {"i", "he", "she"}:
+      if sentence[ind_pos(sentence, "pronoun")][1] in {"i", "he", "she"}:
         sentence.insert(ind_pos(sentence, "verb"), ("aux", "was"))
       else:
         sentence.insert(ind_pos(sentence, "verb"), ("aux", "were"))
+      sentence = replace_tense_word(sentence, 2)
+      return sentence
+    else:
+      if sentence[ind_pos(sentence, "pronoun")][1] in {"i"}:
+        sentence.insert(ind_pos(sentence, "verb"), ("aux", "am"))
+      elif sentence[ind_pos(sentence, "pronoun")][1] in {"he", "she"}:
+        sentence.insert(ind_pos(sentence, "verb"), ("aux", "is"))
+      else:
+        sentence.insert(ind_pos(sentence, "verb"), ("aux", "are"))
+      sentence = replace_tense_word(sentence, 2)
       return sentence
   else:
     sentence.insert(ind_pos(sentence, "aux"), ("be", "being"))
     return sentence
   pass
 
-eq_list_1 = """v_0
+
+eq_list_1 = """f_cont
+ v_0
+
+v_0
+
+f_past
+ v_0"""
+eq_list_1 = """f_because
+ f_cont
+  v_0
+ f_join
+  f_past
+   v_1
+  f_past
+   v_2
+
+v_0"""
+eq_list_1 = """f_because
+ f_word
+  f_cont
+   v_0
+  v_1
+ f_join
+  f_past
+   v_2
+  f_past
+   v_3
+
+v_0
+
+f_join
+ f_past
+  v_0
+ f_past
+  v_1
+
+f_because
+ v_0
+ v_1
 
 f_past
  v_0
+
+f_because
+ f_cont
+  v_0
+ f_join
+  f_past
+   v_1
+  f_past
+   v_2
 
 f_because
  f_past
@@ -896,58 +1021,187 @@ f_because
   f_past
    v_1
   f_past
-   v_2"""
+   v_2
+
+f_cont
+ v_0
+
+f_invert
+ v_0
+
+f_word
+ f_cont
+  v_0
+ v_1"""
 
 eq_list_1 =  eq_list_1.split("\n\n")
-def gen():
+adverb = ["away", "fast"]
+
+part_of_speech = {"not": "adverb"}
+for item in verb:
+  for s in item:
+    part_of_speech[s] = "verb"
+for item in adjective:
+  part_of_speech[item] = "adjective"
+for item in ["is", "am", "are", "is", "was", "were"]:
+  part_of_speech[item] = "aux"
+for item in ["i", "he", "her", "this", "him", "she", "they", "me", "you"]:
+  part_of_speech[item] = "pronoun"
+for item in ["who", "how", "what", "why", "when", "where"]:
+  part_of_speech[item] = "question"
+for item in adverb:
+  part_of_speech[item] = "adverb"
+for item in ["because"]:
+  part_of_speech[item] = "conjunction"
+for item in ["of"]:
+  part_of_speech[item] = "preposition"
+for item in noun:
+  part_of_speech[item] = "noun"
+part_of_speech["a"] = "determiner"
+part_of_speech["an"] = "determiner"
+for item in ["do", "doing", "does", "did"]:
+  part_of_speech[item] = "do"
+sc = input("input your sentence: ")
+sc = sc.split(" ")
+sd = [part_of_speech[item] for item in sc]
+s_1 = list(zip(sd, sc))
+if ind_pos(s_1, "question") != -1:
+  s_1 = first_person(s_1)
+#print(s_1)
+#print(s_1)
+#print(add_word(cont(s_1), [("adverb", "away")]))
+#print(inter(cont(s_1)))
+#print(inter(tense(s_1, "past")))
+def apply_fx(pos, sentence, question_index):
+  if question_index != 1:
+    return pos
+  elif not isinstance(pos[0], tuple):
+    return [pos[0]]
+  if ind_pos(sentence, "verb") != -1:
+    word = replace_tense_word([sentence[ind_pos(sentence, "verb")]], 0)[0][1]
+    #print(word)
+    for item in verb:
+      if item[0] == word:
+        return [item]
+  return [pos[0]]
+def gen(question_input):
   list_basic = []
-  for item in verb:
+  for item in apply_fx(verb, s_1, question_input):
     list_basic.append([("pronoun", "he"), ("verb", item[1])])
     list_basic.append([("pronoun", "i"), ("verb", item[0])])
     list_basic.append([("pronoun", "he"), ("aux", "is"), ("verb", item[3])])
-  for item in adjective:
+    list_basic.append([("pronoun", "i"), ("aux", "am"), ("verb", item[3])])
+  for item in apply_fx(adjective, s_1, question_input):
     list_basic.append([("pronoun", "he"), ("aux", "is"), ("adjective", item)])
     list_basic.append([("pronoun", "i"), ("aux", "am"), ("adjective", item)])
-
+  for item in apply_fx(noun_single, s_1, question_input):
+    if item[0] in {"a", "e", "i", "o", "u"}:
+      list_basic.append([("pronoun", "he"), ("aux", "is"), ("determiner", "an"), ("noun", item)])
+      list_basic.append([("pronoun", "i"), ("aux", "am"), ("determiner", "an"), ("noun", item)])
+    else:
+      list_basic.append([("pronoun", "he"), ("aux", "is"), ("determiner", "a"), ("noun", item)])
+      list_basic.append([("pronoun", "i"), ("aux", "am"), ("determiner", "a"), ("noun", item)])
+  for item in apply_fx(adverb, s_1, question_input):
+    list_basic.append([("adverb", item)])
+  
+  final = []
+  p = []
+  v = []
+  for i in range(len(sc)):
+    if sd[i] == "pronoun":
+      for item in pronoun_list:
+        if sc[i] == item[0] or sc[i] == item[1]:
+          p.append(item[0])
+          p.append(item[1])
+    elif sd[i] == "verb":
+      v.append(replace_tense_word([("verb", sc[i])], 0)[0][1])
+      
+  for sen in list_basic:
+    if any(item[0]=="verb" and replace_tense_word([item], 0)[0][1] not in v for item in sen):
+      final.append(sen)
+    if any(item[0] in {"adjective", "adverb"} and item[1] not in sc for item in sen):
+      final.append(sen)
+    if any(item[0] == "pronoun" and item[1] not in p for item in sen):
+      final.append(sen)
+    if any(item[0] == "noun" and item[1] not in sc for item in sen):
+      final.append(sen)
+  if question_input > 0:
+    final = []
+  #if question_input:
+  #  final = random.sample(final, int(len(final)/2))
+  for item in final:
+    if item in list_basic:
+      list_basic.remove(item)
+  
+  #for item in list_basic:
+  #  print(break_s(item)[1])
+  #uhidcuh()
   return list_basic
 
-s_1 = list(zip("pronoun aux adjective".split(" "), "i am honest".split(" ")))
-def generate_question(s_1):
+#s_1 = list(zip("pronoun aux verb adverb".split(" "), "i am running away".split(" ")))
+
+#print(inter(tense(add_word(cont(s_1), "away"),"past")))
+#s_2 = list(zip("pronoun aux verb".split(" "), "i am scared".split(" ")))
+#print(joins2(s_2, joins(s_1, s_2)))
+#ufcurf()
+#print(cont(s_1))
+def generate_question(s_1, question_input=False):
 #print(invert(s_1))
-  extra_word =[("adverb", "away")]
-  right_of = []
-  for item in extra_word:
-    if item in s_1:
-      right_of.append([s_1[s_1.index(item)-1], item])
-      s_1.remove(item)
   #print(inter(s_1))
   #s_1 = list(zip("pronoun aux verb".split(" "), "i killed".split(" ")))
   #s_2 = list(zip("pronoun aux verb".split(" "), "he was killed".split(" ")))
   #print(joins(s_1, s_2))
+  global store
+  eq_store = []
   question = []
   for eq in eq_list_1:
+    #print(eq)
     if eq == "v_0":
-      for fx in [inter, inter2]:
-        
-        question.append(" ".join(break_s(fx(s_1))[1]) + " -> " + " ".join(break_s(s_1)[1]))
+      if question_input > 0:
+        for item in gen(question_input):
+          for fx in [inter, inter2]:
+            if fx(item) != "can't simplify" and fx(item) == s_1:
+              if question_input == 1:
+                eq_store.append(eq)
+                break
+              question.append(" ".join(break_s(item)[1]))
+          if eq in eq_store:
+            break
+      else:
+        for fx in [inter, inter2]:
+          if fx(s_1) == "can't simplify":
+            continue
+          question.append(" ".join(break_s(fx(s_1))[1]) + " -> " + " ".join(break_s(s_1)[1]))
     i = 0
     while "v_"+str(i) in eq:
       i += 1
-    #print(i)
-    for item in itertools.permutations(gen(), i):
-      #print(" ".join(break_s(compute(list(item), tree_form(eq)))[1]))
+    
+    if eq == "v_0":
+      continue
+    for item in itertools.permutations(gen(question_input), i):
+      
       store = []
       tmp  = compute(list(item), tree_form(eq))
-        
-      if tmp == s_1:
+      if tmp != "can't simplify" and question_input>0:
+        #print(tmp)
+        for fx in [inter, inter2]:
+          if len(fx(tmp))==len(s_1) and fx(tmp) == s_1:
+            if question_input == 1:
+              eq_store.append(eq)
+              break
+            else:
+              question.append(" ".join(break_s(tmp)[1]))
+      if eq in eq_store:
+        break
+          
+      if not question_input>0 and tmp == s_1:
         for x in  list(item)+store+[s_1]:
-          for h in right_of:
-            if h[0] in x:
-              x.insert(x.index(h[0])+1, h[1])
+          
           y=None
           if x == "can't simplify":
             continue
-          tmp = tense(copy.deepcopy(x), "past")
+          
+          tmp = x
           if tmp == "can't simplify":
             tmp = x
           for fx in [inter, inter2]:
@@ -956,16 +1210,27 @@ def generate_question(s_1):
               y = tmp_2
             else:
               continue
+            
             question.append(" ".join(break_s(y)[1]) + " -> " + " ".join(break_s(tmp)[1]))
-          i=-1
-        break
-    if i == -1:
-      break
-  for item in list(set(question)):
-    print(item)
-
-generate_question(s_1)
-print("above")
+          
+          
+  if question_input == 1:
+    return eq_store
+  return list(set(question))
+q= None
+if ind_pos(s_1, "question") != -1:
+  #while 
+  q=generate_question(s_1, 1)
+  if q and isinstance(q[0], str):
+    #print(q)
+    eq_list_1 = q
+    q = generate_question(s_1, 2)
+else:
+  q=generate_question(s_1, 0)
+print()
+for item in list(set(q)):
+  print(item)
+#print("above")
 """
 for eq in eq_list_1:
   for item in gen():
@@ -978,7 +1243,7 @@ for eq in eq_list_3:
     print(" ".join(break_s(compute(list(item), tree_form(eq)))[1]))
 print()
 """
-
+"""
 s_2 = list(zip("pronoun aux verb".split(" "), "he was killed".split(" ")))
 s_3 = list(zip("pronoun aux verb".split(" "), "i am running".split(" ")))
 
@@ -1004,7 +1269,7 @@ print(" ".join(break_s(s_a)[1]))
 
 print()
 print()
-
+"""
 eq = """hi
 #hi
 ##asl ?
@@ -1019,6 +1284,8 @@ eq = """hi
 ####same.
 #####...*boring
 ######cute"""
+
+"""
 import random
 eq = eq.replace(" ", ">")
 eq = eq.replace("#", " ")
@@ -1030,3 +1297,4 @@ def gen_tree(tree):
   choice = random.choice(tree.children)
   gen_tree(choice)
 gen_tree(eq_tree)
+"""
