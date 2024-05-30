@@ -1,19 +1,19 @@
 import copy
 import itertools
-# Basic data structure, which can nest to represent math equations
+
 class TreeNode:
     def __init__(self, name, children=None):
         self.name = name
         self.children = children or []
-# convert string representation into tree
+        
 def tree_form(tabbed_strings):
     lines = tabbed_strings.split("\n")
-    root = TreeNode("Root") # add a dummy node
+    root = TreeNode("Root")
     current_level_nodes = {0: root}
     stack = [root]
     for line in lines:
-        level = line.count(' ') # count the spaces, which is crucial information in a string representation
-        node_name = line.strip() # remove spaces, when putting it in the tree form
+        level = line.count(' ')
+        node_name = line.strip()
         node = TreeNode(node_name)
         while len(stack) > level + 1:
             stack.pop()
@@ -21,20 +21,20 @@ def tree_form(tabbed_strings):
         parent_node.children.append(node)
         current_level_nodes[level] = node
         stack.append(node)
-    return root.children[0] # remove dummy node
-# convert tree into string representation
+    return root.children[0]
+
 def str_form(node):
     def recursive_str(node, depth=0):
-        result = "{}{}".format(' ' * depth, node.name) # spacings
+        result = "{}{}".format(' ' * depth, node.name)
         for child in node.children:
-            result += "\n" + recursive_str(child, depth + 1) # one node in one line
+            result += "\n" + recursive_str(child, depth + 1)
         return result
     return recursive_str(node)
-# fancy print
+
 def print_equation_helper(equation_tree):
     if equation_tree.name[:2] in {"v_", "s_"}:
-        return equation_tree.name # leaf node
-    s = equation_tree.name[2:] + "(" # bracket
+        return equation_tree.name
+    s = equation_tree.name[2:] + "("
     x =[]
         
     for child in equation_tree.children:
@@ -427,7 +427,7 @@ def compute(param, param2, equation):
     ans = proper_noun(*output)
   elif equation.name == "f_perfect":
     ans = perfect(*output)
-  #print(ans)
+    
   return copy.deepcopy(ans)
 
 def add_word(a, b):
@@ -441,7 +441,7 @@ def add_word(a, b):
 
 def semantic(sentence, equation, param):
   if sentence[-1][0] == "aux":
-    #print("HIHI")
+      
     return "can't simplify"
   if tree_form(equation).name == "f_because":
     left = str_form(tree_form(equation).children[0])
@@ -591,6 +591,7 @@ eq_list_1 = """f_word
    v_0
   s_0
  s_1"""
+
 eq_list_1 =  eq_list_1.split("\n\n")
 adverb = ["away", "fast"]
 
