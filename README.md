@@ -62,8 +62,8 @@ final answer:
 prep(past(noun(verb(you,give)),poss(you,attention)),to,i)
 ```
 this is converting the sentence "you gave your attention to me" into its algebraic form. <br>
-<b> computational intensive to train the models using setup files: </b> <br>
 <br>
+<b> computational intensive to train the models using setup files: </b> <br>
 use google research colab if your computer is slow <br> <br>
 <b> language algebra directory </b> <br>
 perform algebra with the algebraic form of the sentence once its converted to that form
