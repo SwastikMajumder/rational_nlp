@@ -134,10 +134,10 @@ for equation in eq_list.split("\n\n"):
         new_eq = new_eq.replace(number[str(i)] + "_" + str(j), "d_" + item[i][j])
     if "d_none" not in new_eq:
         input_arr.append(new_eq)
-import read_8
+import read_model_lib
 input_arr = "\n\n".join(input_arr)
 print("\nguessed equations:\n")
-output_arr = read_8.process(input_arr)
+output_arr = read_model_lib.process(input_arr)
 sentence = " ".join(sentence)
 input_arr = input_arr.split("\n\n")
 print("\nfinal answer: ")

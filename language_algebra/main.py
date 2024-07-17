@@ -232,7 +232,7 @@ eq = """f_by
 
 print(string_equation(eq))
 print()
-eq = search(eq, 5, [None, "formula-list-4/medium-ask.txt", None])
+eq = search(eq, 5, [None, "formula-list/formula_001.txt", None])
 
 print()
 
