@@ -109,7 +109,8 @@ training_data_noun = [
     ("i am good + boy", "i am a good boy"),
     ("i broke + chair", "i broke the chair"),
     ("john is good + man", "john is a good man"),
-    ("you gave + your attention", "you gave your attention")
+    ("you gave + your attention", "you gave your attention"),
+    ("you gave + attention", "you gave attention")
 ]
 
 training_data_verb3 = [
@@ -141,7 +142,8 @@ training_data_prep = [
     ("john threw a rock + at + mary", "john threw a rock at mary"),
     ("john used a brush + on + wall", "john used a brush on the wall"),
     ("john ran + across + finishing line", "john ran across the finishing line"),
-    ("you gave your attention + to + i", "you gave your attention to me")
+    ("you gave your attention + to + i", "you gave your attention to me"),
+    ("you gave attention + to + i", "you gave attention to me")
 ]
 
 training_data_poss = [
