@@ -178,8 +178,9 @@ import numpy as np
 import torch
 from transformers import BartTokenizer, BartForConditionalGeneration, AdamW
 
-names = ["past"]
-training_data_set = [training_data_past]
+names = ["past", "ask", "adj", "poss", "prep", "by", "verb3", "noun", "verb"]
+training_data_set = [training_data_past, training_data_ask, training_data_adj, training_data_poss, training_data_prep, training_data_by, training_data_verb3, training_data_noun, training_data_verb]
+
 count = 0
 
 for training_data in training_data_set:
