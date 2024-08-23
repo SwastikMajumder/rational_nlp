@@ -1,5 +1,3 @@
-# don't mind the words. my best project. i want to encompass whole humanity with it. so i find this interesting
-
 def flat(lst):
   output = []
   for item in lst:
@@ -9,8 +7,8 @@ def flat(lst):
 vocab = {
 "wposs": {"he": "his", "you": "your"},
 "wobj": {"i": "me", "he": "him"},
-"wthird": {"die": "dies", "love": "loves", "kill": "kills", "fuck": "fucks", "run": "runs"},
-"wpast": {"die": "died", "love": "loved", "kill": "killed", "fuck": "fucked", "run": "ran"},
+"wthird": {"die": "dies", "love": "loves", "kill": "kills", "run": "runs"},
+"wpast": {"die": "died", "love": "loved", "kill": "killed", "run": "ran"},
 "warticle": {"car-accident": "a-car-accident"}
 }
 
