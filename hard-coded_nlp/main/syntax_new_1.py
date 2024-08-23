@@ -254,4 +254,4 @@ def return_equation(sentence):
         print("*******")
         print()
         return input_arr[i]
-return_equation("i love you because you love me")
+return_equation("he died in a car accident")
