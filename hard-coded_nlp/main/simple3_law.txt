@@ -1,0 +1,125 @@
+f_past
+ f_verb3
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_wpast
+  u_1
+ f_wobj
+  u_2
+
+f_obj
+ u_0
+ f_poss
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_poss
+  u_1
+  u_2
+
+f_obj
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ f_wobj
+  u_1
+
+f_noun
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ f_warticle
+  u_1
+
+f_poss
+ u_0
+ u_1
+
+f_sentence
+ f_wposs
+  u_0
+ u_1
+
+f_prep
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ u_1
+
+f_verb3
+ u_0
+ u_1
+ u_2
+
+f_obj
+ f_verb2
+  u_0
+  u_1
+ u_2
+
+f_ask
+ f_past
+  f_verb2
+   u_0
+   u_1
+
+f_sentence
+ d_did
+ u_0
+ u_1
+
+f_past
+ f_verb2
+  u_0
+  u_1
+
+f_sentence
+ u_0
+ f_wpast
+  u_1
+
+f_verb2
+ d_i
+ u_0
+
+f_sentence
+ d_i
+ u_0
+
+f_verb2
+ d_you
+ u_0
+
+f_sentence
+ d_you
+ u_0
+
+f_verb2
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ f_wthird
+  u_1
+
+f_because
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ d_because
+ u_1

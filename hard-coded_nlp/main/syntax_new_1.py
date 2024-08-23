@@ -9,34 +9,34 @@ f_ask
    actor_0
    verb_0
 
-f_mverb
- verb_0
- noun_0
-
-f_prep
- f_mverb
-  verb_0
+f_obj
+ f_past
+  f_verb2
+   actor_0
+   verb_0
+ f_poss
+  actor_0
   noun_0
- prep_0
+
+f_obj
+ f_prep
+  f_past
+   f_verb2
+    f_poss
+     actor_0
+     noun_0
+    verb_0
+  prep_0
  actor_0
 
-f_prep
- f_past
+f_obj
+ f_prep
   f_verb2
    f_poss
     actor_0
     noun_0
    verb_0
- prep_0
- actor_0
-
-f_prep
- f_verb2
-  f_poss
-   actor_0
-   noun_0
-  verb_0
- prep_0
+  prep_0
  actor_0
 
 f_prep
@@ -47,12 +47,6 @@ f_prep
    noun_0
  prep_0
  actor_1
-
-f_past
- f_verb3
-  actor_0
-  verb_0
-  noun_0
 
 f_by
  f_past
@@ -73,11 +67,22 @@ f_verb2
  actor_0
  verb_0
 
-f_cont
- f_verb3
-  actor_0
-  verb_0
-  noun_0
+f_noun
+ f_prep
+  f_past
+   f_verb2
+    actor_0
+    verb_0
+  prep_0
+ noun_0
+
+f_noun
+ f_prep
+  f_verb2
+   actor_0
+   verb_0
+  prep_0
+ noun_0
 
 f_prep
  f_past
@@ -107,15 +112,14 @@ f_past
   actor_0
   verb_0
   actor_1"""
-
+import vocabulary
 def return_equation(sentence):
-    pos_dic = {"verb": ["say", "love", "kill", "pee", "throw", "give", "shoot", "take", "do", "die"], "actor": ["everyone", "john", "mary", "you", "i"], "noun": ["hi", "girl-friend", "homework", "attention", "rock", "shit", "real-name", "name", "age"], "adj": ["happy"], "prep": ["at", "to", "on"]}
-    vocab = {"love": ["loves", "loved", "loving"], "die": ["died"], "pee": ["peed", "pees", "peeing"], "do": ["did", "doing"], "kill": ["killed"], "you": ["your"], "i": ["me", "my"], "take": ["took"], "throw": ["throwing", "threw", "throws"], "give": ["gave"], "shoot": ["shot", "shooting"]}
+    pos_dic = {"verb": vocabulary.verb_list, "actor": vocabulary.actor_list, "noun": vocabulary.noun_list, "adj": vocabulary.adj_list, "prep": vocabulary.prep_list}
+    vocab = vocabulary.all_list
     number = {"0": "verb", "1": "actor", "2": "noun", "3": "adj", "4": "prep"}
     #sentence = "mary threw a rock"
-    correct = ["what", "is", "are", "a", "by", "am"]
-    hyphen_word = ["real name", "girl friend"]
-
+    correct = vocabulary.correct
+    hyphen_word = vocabulary.hyphen_word
     class TreeNode:
         def __init__(self, name, children=None):
             self.name = name
@@ -191,6 +195,7 @@ def return_equation(sentence):
           if item in vocab[key]:
             new_sentence.append(key)
     sentence = orig.split()
+    new_sentence = list(set(new_sentence))
     print()
     print("*******")
     print("inputted sentence: " + " ".join(sentence))
@@ -237,8 +242,8 @@ def return_equation(sentence):
             
     #input_arr = "\n\n".join(input_arr)
     print("\ntried equations:\n")
-    import syntax_3_4
-    output_arr = syntax_3_4.process(input_arr)
+    import simple_8
+    output_arr = simple_8.process(input_arr)
 
     sentence = " ".join(sentence)
     #input_arr = input_arr.split("\n\n")
