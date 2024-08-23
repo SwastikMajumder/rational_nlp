@@ -1,6 +1,6 @@
 <br>
 
-run the main.py files afterwards to get this output - <br>
+run the main.py files to get this output - <br>
 ```
 *******
 inputted sentence: he died in a car accident
