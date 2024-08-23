@@ -1,4 +1,4 @@
-<b> the main.py file in hard-coded's main directory (use this one): </b> <br>
+<br>
 
 run the main.py files afterwards to get this output - <br>
 ```
