@@ -1,7 +1,7 @@
 <br>
-<b> the meaning engine giving the following output </b> <br>
-```
-S(past(verb3(john,kill,mary)))
+<b> run the main.py files to get outputs  </b><br><br>
+<b> the meaning engine giving the following output </b><br><br>
+<pre><code>S(past(verb3(john,kill,mary)))
 S(past(verb3(john,escape,the-police)))
 S(declare(john,crook))
 S(past(verb2(mary,die)))
@@ -25,7 +25,7 @@ S(verb3(the-police,punish,john))
 S(that(verb2(the-police,know),past(verb2(mary,die))))
 S(that(past(verb3(john,tell,the-police)),past(verb2(mary,die))))
 S(that(past(verb3(john,tell,the-police)),declare(john,crook)))
-
+<br>
 the police knows that mary died
 john knows that john killed mary
 john knows that john is a crook
@@ -41,16 +41,17 @@ john is a crook
 the police knows that john is a crook
 the police punishes john
 john knows that mary died
-```
-<b> the grammar engines</b>
-run the main.py files to get this output - <br>
-```
+</code></pre>
+
+<b> the grammar engines</b><br>
+
+<pre><code>
 *******
 inputted sentence: he died in a car accident
 words of processed sentence: he, die, car-accident, a, in
-
+<br>
 tried equations:
-
+<br>
 past(verb2(he,die))
 ask(past(verb2(he,die)))
 obj(past(verb2(he,die)),poss(he,car-accident))
@@ -59,7 +60,7 @@ obj(prep(verb2(poss(he,car-accident),die),in),he)
 verb2(he,die)
 noun(prep(past(verb2(he,die)),in),car-accident)
 noun(prep(verb2(he,die),in),car-accident)
-
+<br>
 he died
 did he die
 he died his car accident
@@ -68,10 +69,11 @@ his car accident dies in him
 he dies
 he died in a car accident
 he dies in a car accident
-
+<br>
 final answer: 
 noun(prep(past(verb2(he,die)),in),car-accident)
 *******
-```
+</code> </pre>
+
 this is converting the sentence "he died in a car accident" into its algebraic form. <br>
 <br>
