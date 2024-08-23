@@ -1,0 +1,178 @@
+f_past
+ f_verb3
+  u_0
+  d_kill
+  u_1
+
+f_past
+ f_verb2
+  u_1
+  d_die
+
+f_past
+ f_verb3
+  u_0
+  d_kill
+  u_1
+
+f_declare
+ u_0
+ d_crook
+
+f_S
+ f_past
+  f_verb2
+   u_0
+   d_die
+
+f_S
+ f_that
+  f_verb2
+   d_the-police
+   d_know
+  f_past
+   f_verb2
+    u_0
+    d_die
+
+f_that
+ f_verb2
+  d_the-police
+  d_know
+ f_declare
+  u_0
+  d_crook
+
+f_verb3
+ d_the-police
+ d_punish
+ u_0
+
+f_S
+ f_that
+  f_past
+   f_verb3
+    u_0
+    d_tell
+    u_1
+  u_2
+
+f_S
+ f_that
+  f_verb2
+   u_1
+   d_know
+  u_2
+
+f_S
+ f_past
+  f_verb3
+   u_0
+   d_kill
+   u_1
+
+f_S
+ f_that
+  f_verb2
+   u_0
+   d_know
+  f_past
+   f_verb3
+    u_0
+    d_kill
+    u_1
+
+f_condition
+ f_present
+  f_S
+   f_that
+    f_verb2
+     d_the-police
+     d_know
+    f_past
+     f_verb2
+      u_0
+      d_die
+  f_S
+   f_past
+    f_verb3
+     u_1
+     d_kill
+     u_0
+ f_notpresent
+  f_S
+   f_that
+    f_verb2
+     d_the-police
+     d_know
+    f_past
+     f_verb3
+      u_1
+      d_kill
+      u_0
+
+f_S
+ f_comma
+  f_past
+   f_verb3
+    d_the-police
+    d_ask
+    u_1
+  f_who
+   f_past
+    f_verb2
+     u_0
+     d_kill
+
+f_condition
+ f_present
+  f_S
+   f_comma
+    f_past
+     f_verb3
+      u_0
+      d_ask
+      u_1
+    f_who
+     f_past
+      f_verb2
+       u_2
+       d_kill
+  f_S
+   f_that
+    f_verb2
+     u_1
+     d_know
+    f_past
+     f_verb3
+      u_3
+      d_kill
+      u_2
+ f_notpresent
+
+f_S
+ f_that
+  f_past
+   f_verb3
+    u_1
+    d_tell
+    u_0
+  f_past
+   f_verb3
+    u_3
+    d_kill
+    u_2
+
+f_S
+ f_past
+  f_verb3
+   u_0
+   d_kill
+   u_1
+
+f_S
+ f_past
+  f_verb3
+   u_0
+   d_escape
+   d_the-police

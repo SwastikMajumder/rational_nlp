@@ -1,0 +1,475 @@
+f_past
+ f_verb3
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_wpast
+  u_1
+ u_2
+
+f_ask
+ f_let
+  f_sentence
+   u_0
+   u_1
+   u_2
+
+f_sentence
+ d_who
+ d_let
+ u_0
+ u_1
+ u_2
+
+f_wpast
+ d_hit
+
+d_hit
+
+f_wpast
+ d_annoy
+
+d_annoyed
+
+f_because
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ d_because
+ u_1
+
+f_cont
+ f_verb2
+  u_0
+  u_1
+
+f_sentence
+ u_0
+ d_is
+ f_wcont
+  u_1
+
+f_wcont
+ d_cry
+
+d_crying
+
+f_past
+ f_verb2 
+  u_0
+  u_1
+
+f_sentence
+ u_0
+ f_wpast
+  u_1
+
+f_wpast
+ d_die
+
+d_died
+
+f_prep
+ u_0
+ u_1
+ d_john
+
+f_sentence
+ u_0
+ u_1
+ d_john
+
+f_prep
+ u_0
+ u_1
+ d_mary
+
+f_sentence
+ u_0
+ u_1
+ d_mary
+
+f_prep
+ u_0
+ u_1
+ d_i
+
+f_sentence
+ u_0
+ u_1
+ d_me
+
+f_invert
+ f_mverb2
+  u_0
+  u_1
+
+f_sentence
+ d_do
+ d_not
+ u_0
+ u_1
+
+f_verb4
+ u_0
+ u_1
+ u_2
+ u_3
+
+f_sentence
+ u_0
+ u_1
+ u_2
+ f_objpro
+  u_3
+
+f_objpro
+ d_he
+
+d_him
+
+f_to
+ u_0
+
+f_sentence
+ u_0
+ d_to
+
+f_invert
+ f_verb3
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_wdo
+  u_0
+ d_not
+ u_1
+ u_2
+
+f_wdo
+ d_i
+
+d_do
+
+f_wdo
+ d_john
+
+d_does
+
+f_invert
+ f_verb4
+  u_0
+  u_1
+  u_2
+  u_3
+
+f_sentence
+ u_0
+ f_wdo
+  u_0
+ d_not
+ u_1
+ u_2
+ f_objpro
+  u_3
+
+f_ask
+ f_past
+  f_verb2
+   u_0
+   u_1
+
+f_sentence
+ d_did
+ u_0
+ u_1
+
+f_ask
+ f_verb2
+  u_0
+  u_1
+
+f_sentence
+ f_wdo
+  u_0
+ u_0
+ u_1
+
+f_ask
+ f_past
+  f_verb3
+   u_0
+   u_1
+   u_2
+
+f_sentence
+ d_did
+ u_0
+ u_1
+ u_2
+
+f_wthird
+ d_throw
+
+d_throws
+
+f_wthird
+ d_do
+
+d_does
+
+f_what
+ f_verb2
+  u_0
+  u_1
+
+f_sentence
+ d_what
+ f_wdo
+  u_0
+ u_0
+ u_1
+
+f_what
+ f_past
+  f_verb2
+   u_0
+   u_1
+
+f_sentence
+ d_what
+ d_did
+ u_0
+ u_1
+
+f_how
+ f_past
+  u_0
+
+f_sentence
+ d_how
+ d_did
+ u_0
+
+f_cont
+ f_verb3
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_waux
+  u_0
+ f_wcont
+  u_1
+ u_2
+
+f_poss
+ u_0
+ u_1
+
+f_sentence
+ f_wposs
+  u_0
+ u_1
+
+f_future
+ f_sentence
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ d_will
+ u_1
+ u_2
+
+f_cont
+ f_verb3
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_waux
+  u_0
+ f_wcont
+  u_1
+ u_2
+
+f_wobj
+ u_0
+
+u_0
+
+f_verb3
+ d_the-police
+ u_0
+ u_1
+
+f_sentence
+ d_the-police
+ f_wthird
+  u_0
+ u_1
+
+f_declare
+ d_john
+ u_0
+
+f_sentence
+ d_john
+ d_is
+ d_a
+ u_0
+
+f_verb2
+ d_the-police
+ u_0
+
+f_sentence
+ d_the-police
+ f_wthird
+  u_0
+
+f_that
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ d_that
+ u_1
+
+f_verb2
+ d_john
+ u_0
+
+f_sentence
+ d_john
+ f_wthird
+  u_0
+
+f_verb2
+ d_bob
+ u_0
+
+f_sentence
+ d_bob
+ f_wthird
+  u_0
+
+f_verb2
+ d_mary
+ u_0
+
+f_sentence
+ d_mary
+ f_wthird
+  u_0
+
+f_verb2
+ d_i
+ u_0
+
+f_sentence
+ d_i
+ u_0
+
+f_verb2
+ f_poss
+  u_2
+  u_0
+ u_1
+
+f_sentence
+ f_wposs
+  u_2
+ u_0
+ f_wthird
+  u_1
+
+f_mverb
+ u_0
+ u_1
+
+f_sentence
+ u_0
+ u_1
+
+f_prep
+ u_0
+ u_1
+ d_everyone
+
+f_sentence
+ u_0
+ u_1
+ d_everyone
+
+f_verb3
+ d_everyone
+ u_0
+ u_1
+
+f_sentence
+ d_everyone
+ u_0
+ u_1
+
+f_cont
+ f_verb3
+  d_everyone
+  u_0
+  u_1
+
+f_sentence
+ d_everyone
+ d_is
+ f_wcont
+  u_0
+ u_1
+
+f_verb2
+ d_everyone
+ u_0
+
+f_sentence
+ d_everyone
+ f_wthird
+  u_0
+
+f_past
+ f_verb3
+  u_0
+  u_1
+  u_2
+
+f_sentence
+ u_0
+ f_wpast
+  u_1
+ u_2
+
+f_who
+ f_past
+  f_verb2
+   u_0
+   u_1
+
+f_sentence
+ d_who
+ f_wpast
+  u_1
+ u_0
