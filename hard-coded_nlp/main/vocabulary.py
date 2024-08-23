@@ -51,4 +51,4 @@ for item in key_list:
   all_list[item] = key_ans(vocab, item)
 
 correct = ["what", "is", "are", "a", "by", "am"]
-hyphen_word = ["real name", "girl friend"]+[x.replace("-", " ") for x in key_list if "-" in x]
+hyphen_word = ["real name"]+[x.replace("-", " ") for x in key_list if "-" in x]
